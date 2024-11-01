@@ -1,6 +1,67 @@
+import { useState } from "react";
+import { useForm } from "../../hooks/useForm";
+import { useNavigate } from "react-router-dom";
+import { Global } from '../../helpers/Global';
+import Swal from 'sweetalert2';
 
 export const Register = () => {
   
+  // Usar el hook personalizado useForm para cargar los datos del formulario
+  const { form, changed } = useForm({});
+
+  // Estado para mostrar el resultado del registro del user en la BD
+  const [ saved, setSaved ] = useState("not sended");
+
+  // Hook para redirigir
+  const navigate = useNavigate();
+
+  // Método Guardar un usuario en la BD
+  const saveUser = async (e) => {
+
+    // Prevenir que se actualice la pantalla
+    e.preventDefault();
+
+    // Obtener los datos del formulario
+    let newUser = form;
+
+    // Petición a la API (Backend) para guardar el usuario en la BD
+    const request = await fetch(Global.url + 'user/register', {
+      method: 'POST',
+      body: JSON.stringify(newUser),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    // Obtener la información retornada por el backend
+    const data = await request.json();
+
+    // Verificar si el estado de la respuesta es "created" seteamos la variable de estado saved con "saved"
+    if(request.status === 201 && data.status === "created"){
+      setSaved("saved");
+
+      // Mostrar el modal de éxito
+      Swal.fire({
+        title: data.message,
+        icon: 'success',
+        confirmButtonText: 'Continuar',
+      }).then(() => {
+        // Redirigir después de cerrar el modal
+        navigate('/login');
+      });
+
+    } else {
+      setSaved("error");
+
+      // Mostrar el modal de error
+      Swal.fire({
+        title: data.message || "¡Error en el registro!",
+        icon: 'error',
+        confirmButtonText: 'Intentar nuevamente',
+      });
+    };
+  };
+
   return (
     <>
       <header className="content__header content__header--public">
@@ -11,8 +72,16 @@ export const Register = () => {
       <div className="content__posts">
         <div className="form-style">
 
+          {/* Respuesta de usuario registrado */}
+          {saved == "saved" ? (
+            <strong className="alert alert-success">¡Usuario registrado correctamente!</strong>
+          ) : ''}
+          {saved == "error" ? (
+            <strong className="alert alert-danger">¡El Usuario no se ha registrado correctamente!</strong>
+          ) : ''}
 
-          <form className="register-form" onSubmit={''}>
+
+          <form className="register-form" onSubmit={saveUser}>
             <div className="form-group">
               <label htmlFor="name">Nombres</label>
               <input
@@ -20,8 +89,8 @@ export const Register = () => {
                 id="name"
                 name="name"
                 required
-                onChange={''}
-                value={""}
+                onChange={changed}
+                value={form.name || ''}
                 autoComplete="given-name"
               />
             </div>
@@ -32,8 +101,8 @@ export const Register = () => {
                 id="last_name"
                 name="last_name"
                 required
-                onChange={''}
-                value={''}
+                onChange={changed}
+                value={form.last_name || ''}
                 autoComplete="family-name"
               />
             </div>
@@ -44,8 +113,8 @@ export const Register = () => {
                 id="nick"
                 name="nick"
                 required
-                onChange={''}
-                value={''}
+                onChange={changed}
+                value={form.nick || ''}
                 autoComplete="username"
               />
             </div>
@@ -56,8 +125,8 @@ export const Register = () => {
                 id="email"
                 name="email"
                 required
-                onChange={''}
-                value={''}
+                onChange={changed}
+                value={form.email || ''}
                 autoComplete="email"
               />
             </div>
@@ -67,8 +136,8 @@ export const Register = () => {
                 type="text"
                 id="bio"
                 name="bio"
-                onChange={''}
-                value={""}
+                onChange={changed}
+                value={form.bio || ''}
                 autoComplete="biografía"
               />
             </div>
@@ -79,8 +148,8 @@ export const Register = () => {
                 id="password"
                 name="password"
                 required
-                onChange={''}
-                value={''}
+                onChange={changed}
+                value={form.password || ''}
                 autoComplete="new-password"
               />
             </div>
