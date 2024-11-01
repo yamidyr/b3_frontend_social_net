@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import avatar from '../../../assets/img/default.png';
 
 export const NavPriv = () => {
@@ -7,24 +8,24 @@ export const NavPriv = () => {
 
       <ul className="container-lists__menu-list">
         <li className="menu-list__item">
-          <a href='#' className="menu-list__link">
+          <NavLink to='feed' className="menu-list__link">
             <i className="fa-solid fa-house"></i>
             <span className="menu-list__title">Inicio</span>
-          </a>
+          </NavLink>
         </li>
 
         <li className="menu-list__item">
-          <a href='#' className="menu-list__link">
+          <NavLink to='feed'  className="menu-list__link">
             <i className="fa-solid fa-list"></i>
             <span className="menu-list__title">Timeline</span>
-          </a>
+          </NavLink>
         </li>
 
         <li className="menu-list__item">
-          <a href='#' className="menu-list__link">
+          <NavLink to='gente'  className="menu-list__link">
             <i className="fa-solid fa-users"></i>
             <span className="menu-list__title">Gente</span>
-          </a>
+          </NavLink>
         </li>
       </ul>
 
@@ -40,10 +41,10 @@ export const NavPriv = () => {
           </a>
         </li>
         <li className="list-end__item">
-          <a href='#'className="list-end__link">
+          <NavLink to='ajustes' className="list-end__link">
           <i className="fa-solid fa-gear"></i>
             <span className="list-end__name">Ajustes</span>
-          </a>
+          </NavLink>
         </li>
         <li className="list-end__item">
           <a href='#' className="list-end__link">
