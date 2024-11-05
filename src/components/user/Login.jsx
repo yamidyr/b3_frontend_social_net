@@ -52,9 +52,11 @@ export const Login = () => {
       resetForm();
 
       // Redirección
-      setTimeout(() => {
-        navigate("/rsocial");
-      }, 1000);
+      navigate("/rsocial");
+
+      // Forzar una recarga
+      window.location.reload();
+
     } else {
       // Seteamos la variable de estado logged si no se autenticó el usuario
       setLogged("error");

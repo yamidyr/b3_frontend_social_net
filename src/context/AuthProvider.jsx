@@ -52,7 +52,13 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await request.json();
-      setLoading(false); 
+      console.log(data.user); // Debug
+      // Setear el estado de Auth
+      setAuth(data.user);
+      
+      // Asegurar que loading se actualice a false
+      setLoading(false);
+
       // Petición Ajax al backend para los contadores
       const requestCounters = await fetch(Global.url + "user/counters/" + userId, {
         method: "GET",
@@ -68,8 +74,7 @@ export const AuthProvider = ({ children }) => {
 
       const dataCounters = await requestCounters.json();
 
-      // Setear el estado de Auth
-      setAuth(data.user);
+
 
       // Setear el estado de Counters
       setCounters(dataCounters);
