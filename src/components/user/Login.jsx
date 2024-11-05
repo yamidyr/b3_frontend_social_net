@@ -98,7 +98,7 @@ export const Login = () => {
                 required
                 value={form.email}
                 onChange={changed}
-                autoComplete="email"
+                autoComplete="username"
               />
             </div>
 

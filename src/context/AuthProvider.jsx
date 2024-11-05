@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await request.json();
-      console.log(data.user); // Debug
+
       // Setear el estado de Auth
       setAuth(data.user);
       
@@ -73,8 +73,6 @@ export const AuthProvider = ({ children }) => {
       }
 
       const dataCounters = await requestCounters.json();
-
-
 
       // Setear el estado de Counters
       setCounters(dataCounters);
