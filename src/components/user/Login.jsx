@@ -39,13 +39,14 @@ export const Login = () => {
     if (data.status == "success") {
       // Guardar los datos del token y usuario en el localstorage del navegador
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      // Asegurarse de almacenar el usuario en formato JSON
+      localStorage.setItem("user", JSON.stringify(data.userBD)); 
 
-      // Seteamos la variable de estado logged si se autenticó correctamente el usarios
+      // Seteamos la variable de estado logged si se autenticó correctamente el usuario
       setLogged("logged");
 
       // Seteamos los datos del usuario en el Auth
-      setAuth(data.user);
+      setAuth(data.userBD);
 
       // Limpiar el formulario
       resetForm();
@@ -72,14 +73,14 @@ export const Login = () => {
           {/* Mensajes para el usuario */}
           {logged == "logged" ? (
             <strong className="alert alert-success">
-              !Usuario autenticado correctamente¡
+              ¡Usuario autenticado correctamente!
             </strong>
           ) : (
             ""
           )}
           {logged == "error" ? (
             <strong className="alert alert-danger">
-              !El usuario no se ha autenticado¡
+              ¡El usuario no se ha autenticado!
             </strong>
           ) : (
             ""
