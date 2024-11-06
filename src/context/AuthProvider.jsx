@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
       // Setear el estado de Auth
       setAuth(data.user);
-      
+
       // Asegurar que loading se actualice a false
       setLoading(false);
 
