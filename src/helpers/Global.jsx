@@ -1,6 +1,6 @@
 // Ruta del Backend desplegado
   export const Global = {
-    url: "http://localhost:3900/api/"
+    url: "https://b3-backend-social-net-vcc7.onrender.com/api/"
   }
 
 
